@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohammed Jafraan F. | UI/UX Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --accent: #06b6d4;
+      --bg-gradient: radial-gradient(circle at 0% 0%, #1e1b4b 0%, #0f172a 100%);
+      --glass: rgba(30, 41, 59, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    body {
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .blob {
+      position: fixed;
+      width: 400px; height: 400px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.25;
+      z-index: -1;
+      animation: float 10s ease-in-out infinite alternate;
+    }
+    .blob-1 { top: -10%; left: -10%; }
+    .blob-2 { bottom: -10%; right: -10%; animation-delay: -5s; }
+
+    @keyframes float {
+      0%   { transform: translateY(0) scale(1); }
+      100% { transform: translateY(30px) scale(1.1); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Glass Card ── */
+    .glass-card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+
+    h2 {
+      font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 8px;
+      background: linear-gradient(to right, #fff, var(--text-muted));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle { text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 30px; }
+
+    /* ── Inputs ── */
+    .input-group { position: relative; margin-bottom: 20px; }
+    .input-group > i:first-child {
+      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); font-size: 16px; pointer-events: none; z-index: 1;
+    }
+
+    input {
+      width: 100%; padding: 14px 16px 14px 48px;
+      background: rgba(15,23,42,0.6);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px; color: var(--text-main); font-size: 14px; outline: none;
+      transition: all 0.3s ease;
+    }
+    input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(6,182,212,0.2); background: rgba(15,23,42,0.8); }
+    input.input-error { border-color: var(--danger) !important; box-shadow: 0 0 10px rgba(239,68,68,0.2); }
+    input.input-ok    { border-color: var(--success); }
+
+    /* ── Password toggle ── */
+    .input-group .toggle-pw {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); cursor: pointer; font-size: 15px; z-index: 1;
+    }
+    .input-group .toggle-pw:hover { color: var(--text-main); }
+
+    /* ── Phone input ── */
+    .phone-row { display: flex; gap: 8px; }
+    .phone-prefix {
+      padding: 14px 12px; background: rgba(15,23,42,0.6); border: 1px solid var(--glass-border);
+      border-radius: 12px; color: var(--text-muted); font-size: 14px; white-space: nowrap; flex-shrink: 0;
+    }
+    .phone-row input { padding-left: 16px; }
+
+    /* ── Buttons ── */
+    button {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, var(--primary), #6366f1);
+      color: white; border: none; border-radius: 12px;
+      font-size: 16px; font-weight: 600; cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(79,70,229,0.3);
+    }
+    button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(79,70,229,0.5); }
+    button:disabled { opacity: 0.55; cursor: not-allowed; transform: none !important; }
+
+    .btn-secondary {
+      background: transparent; border: 1px solid var(--glass-border);
+      color: var(--text-muted); box-shadow: none; font-size: 14px; padding: 10px;
+    }
+    .btn-secondary:hover:not(:disabled) { background: rgba(255,255,255,0.05); box-shadow: none; color: var(--text-main); }
+
+    .btn-danger { background: linear-gradient(135deg, #ef4444, #b91c1c); box-shadow: 0 4px 12px rgba(239,68,68,0.2); }
+    .btn-danger:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(239,68,68,0.4); }
+
+    .btn-success { background: linear-gradient(135deg, #16a34a, #22c55e); box-shadow: 0 4px 12px rgba(34,197,94,0.2); }
+    .btn-success:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(34,197,94,0.4); }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: rgba(15,23,42,0.95); border: 1px solid var(--glass-border);
+      color: var(--text-main); padding: 14px 24px; border-radius: 14px;
+      font-size: 14px; font-weight: 500; z-index: 9999;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      opacity: 0; max-width: 340px; text-align: center;
+      display: flex; align-items: center; gap: 8px;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    #toast.toast-success { border-color: rgba(34,197,94,0.5); }
+    #toast.toast-error   { border-color: rgba(239,68,68,0.5); }
+    #toast.toast-info    { border-color: rgba(6,182,212,0.5); }
+
+    /* ── Status Badges ── */
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .badge-unverified { background: rgba(245,158,11,0.15); color: var(--warning); border: 1px solid rgba(245,158,11,0.3); }
+    .badge-verified   { background: rgba(34,197,94,0.15);  color: var(--success); border: 1px solid rgba(34,197,94,0.3); }
+
+    .bottom-text { margin-top: 20px; text-align: center; font-size: 14px; color: var(--text-muted); }
+    .bottom-text a { color: var(--accent); text-decoration: none; font-weight: 600; cursor: pointer; }
+    .bottom-text a:hover { text-decoration: underline; }
+
+    .forgot-link {
+      display: block; text-align: right; margin-top: -10px; margin-bottom: 18px;
+      font-size: 13px; color: var(--accent); text-decoration: none; cursor: pointer; font-weight: 500;
+    }
+    .forgot-link:hover { text-decoration: underline; }
+
+    /* ── Info box ── */
+    .info-box {
+      background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.25);
+      border-radius: 12px; padding: 14px 16px; margin-bottom: 20px;
+      font-size: 13px; color: var(--text-muted); line-height: 1.6;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .info-box i { color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+
+    /* ── Spinner ── */
+    .spinner {
+      display: inline-block; width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Portfolio Dashboard ── */
+    .portfolio-dashboard { max-width: 750px; }
+
+    .profile-header { text-align: center; margin-bottom: 30px; }
+    .profile-header h1 {
+      font-size: 32px; font-weight: 700;
+      background: linear-gradient(to right, #fff, var(--accent));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .profile-header p { color: var(--accent); font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; font-weight: 600; }
+
+    .tabs { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; overflow-x: auto; }
+    .tab-btn { background: transparent; box-shadow: none; padding: 8px 16px; font-size: 14px; color: var(--text-muted); border-radius: 8px; width: auto; white-space: nowrap; }
+    .tab-btn:hover:not(:disabled) { background: rgba(255,255,255,0.05); color: var(--text-main); transform: none; box-shadow: none; }
+    .tab-btn.active { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; }
+
+    .tab-content { display: none; animation: fadeIn 0.4s ease-in-out forwards; }
+    .tab-content.active { display: block; }
+
+    .item-card {
+      background: rgba(15,23,42,0.4); border: 1px solid var(--glass-border);
+      border-radius: 12px; padding: 16px; margin-bottom: 15px; transition: transform 0.3s ease;
+    }
+    .item-card:hover { transform: translateX(5px); border-color: rgba(6,182,212,0.3); }
+    .item-card h4 { color: var(--text-main); font-size: 16px; margin-bottom: 4px; }
+    .item-card p, .tab-content > p { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
+
+    .cert-list { list-style: none; }
+    .cert-list li {
+      padding: 12px; border-left: 3px solid var(--accent);
+      background: rgba(15,23,42,0.3); margin-bottom: 10px; font-size: 14px; border-radius: 0 8px 8px 0;
+    }
+
+    .contact-link {
+      display: flex; align-items: center; gap: 12px; padding: 14px;
+      background: rgba(15,23,42,0.4); border: 1px solid var(--glass-border);
+      border-radius: 12px; color: var(--text-main); text-decoration: none; margin-bottom: 12px;
+      transition: all 0.3s ease;
+    }
+    .contact-link:hover { background: rgba(79,70,229,0.15); border-color: var(--primary); color: var(--accent); }
+    .contact-link i { font-size: 18px; }
+
+    /* ── Strength meter ── */
+    .strength-bar { display: flex; gap: 4px; margin-top: 6px; margin-bottom: 4px; }
+    .strength-seg { flex: 1; height: 4px; border-radius: 4px; background: rgba(255,255,255,0.1); transition: background 0.3s; }
+    .strength-label { font-size: 11px; color: var(--text-muted); text-align: right; margin-bottom: 10px; }
+
+    /* Mobile tweaks */
+    @media (max-width: 480px) {
+      .glass-card { padding: 28px 20px; }
+      h2 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div id="toast"></div>
+
+  <div class="glass-card" id="loginCard">
+    <h2>Welcome Back</h2>
+    <p class="subtitle">Sign in to view the portfolio</p>
+
+    <div class="input-group">
+      <i class="fa-regular fa-envelope"></i>
+      <input type="email" id="loginEmail" placeholder="Email Address" autocomplete="email">
+    </div>
+    <div class="input-group">
+      <i class="fa-solid fa-lock"></i>
+      <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
+      <i class="fa-regular fa-eye toggle-pw" onclick="togglePw('loginPassword',this)"></i>
+    </div>
+
+    <a class="forgot-link" onclick="showCard('resetCard')">Forgot password?</a>
+
+    <button id="loginBtn" onclick="handleLogin()">Sign In</button>
+
+    <div class="bottom-text">
+      Don't have an account? <a onclick="showCard('signupCard')">Create one</a>
+    </div>
+  </div>
+
+  <div class="glass-card" id="signupCard" style="display:none;">
+    <h2>Get Started</h2>
+    <p class="subtitle">Create your account</p>
+
+    <div class="input-group">
+      <i class="fa-regular fa-envelope"></i>
+      <input type="email" id="signupEmail" placeholder="Email Address" autocomplete="email">
+    </div>
+    <div class="input-group">
+      <i class="fa-solid fa-lock"></i>
+      <input type="password" id="signupPassword" placeholder="Password (min 6 chars)" autocomplete="new-password" oninput="updateStrength(this.value)">
+      <i class="fa-regular fa-eye toggle-pw" onclick="togglePw('signupPassword',this)"></i>
+    </div>
+    <div class="strength-bar">
+      <div class="strength-seg" id="s1"></div>
+      <div class="strength-seg" id="s2"></div>
+      <div class="strength-seg" id="s3"></div>
+      <div class="strength-seg" id="s4"></div>
+    </div>
+    <div class="strength-label" id="strengthLabel"></div>
+
+    <div class="input-group">
+      <div class="phone-row">
+        <span class="phone-prefix">🇮🇳 +91</span>
+        <input type="tel" id="signupPhone" placeholder="Phone number (Mandatory)" maxlength="10">
+      </div>
+    </div>
+
+    <button id="signupBtn" onclick="handleSignup()">Create Account</button>
+    <div class="bottom-text">
+      Already have an account? <a onclick="showCard('loginCard')">Log In</a>
+    </div>
+  </div>
+
+  <div class="glass-card" id="emailVerifyCard" style="display:none;">
+    <h2>Verify Your Email</h2>
+    <p class="subtitle">Check your inbox and click the link we sent</p>
+
+    <div style="text-align:center; margin: 24px 0;">
+      <i class="fa-regular fa-envelope" style="font-size:56px; color:var(--accent); opacity:0.9;"></i>
+    </div>
+
+    <div class="info-box">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>
+        A verification link has been sent to<br>
+        <strong id="verifyEmailDisplay" style="color:var(--text-main);"></strong><br>
+        <br>Check your <strong>Spam / Junk</strong> folder if you don't see it within a minute.
+      </span>
+    </div>
+
+    <button class="btn-success" onclick="checkEmailVerified()">
+      <i class="fa-solid fa-circle-check" style="margin-right:6px;"></i> I've Verified — Continue
+    </button>
+
+    <div style="margin-top: 12px;">
+      <button class="btn-secondary" id="resendEmailBtn" onclick="resendVerificationEmail()">
+        <i class="fa-solid fa-rotate-right" style="margin-right:6px;"></i> Resend Email
+      </button>
+    </div>
+
+    <div class="bottom-text">
+      Wrong email? <a onclick="handleLogout()">Start over</a>
+    </div>
+  </div>
+
+
+  <div class="glass-card" id="resetCard" style="display:none;">
+    <h2>Reset Password</h2>
+    <p class="subtitle">We'll send a reset link to your email</p>
+
+    <div style="text-align:center; margin: 20px 0;">
+      <i class="fa-solid fa-key" style="font-size:50px; color:var(--warning); opacity:0.85;"></i>
+    </div>
+
+    <div class="input-group">
+      <i class="fa-regular fa-envelope"></i>
+      <input type="email" id="resetEmail" placeholder="Your registered email" autocomplete="email">
+    </div>
+
+    <button id="resetBtn" onclick="handlePasswordReset()">Send Reset Link</button>
+
+    <div style="margin-top: 12px;">
+      <button class="btn-secondary" onclick="showCard('loginCard')">
+        <i class="fa-solid fa-arrow-left" style="margin-right:6px;"></i> Back to Sign In
+      </button>
+    </div>
+  </div>
+
+  <div class="glass-card" id="resetSentCard" style="display:none;">
+    <h2>Check Your Email</h2>
+    <p class="subtitle">Password reset link has been sent</p>
+
+    <div style="text-align:center; margin: 24px 0;">
+      <i class="fa-solid fa-paper-plane" style="font-size:56px; color:var(--success); opacity:0.85;"></i>
+    </div>
+
+    <div class="info-box">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>
+        A password reset link was sent to<br>
+        <strong id="resetEmailDisplay" style="color:var(--text-main);"></strong><br><br>
+        Click the link in the email to set a new password. Check your <strong>Spam</strong> folder if needed.
+      </span>
+    </div>
+
+    <button onclick="showCard('loginCard')">
+      <i class="fa-solid fa-arrow-right-to-bracket" style="margin-right:6px;"></i> Back to Sign In
+    </button>
+  </div>
+
+  <div class="glass-card portfolio-dashboard" id="portfolioDashboard" style="display:none;">
+    <div class="profile-header">
+      <div id="verificationBadges" style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:12px;"></div>
+      <h1>Mohammed Jafraan .F</h1>
+      <p>UI/UX Designer &amp; Developer</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(event,'about')">About</button>
+      <button class="tab-btn" onclick="switchTab(event,'projects')">Projects</button>
+      <button class="tab-btn" onclick="switchTab(event,'experience')">Experience</button>
+      <button class="tab-btn" onclick="switchTab(event,'contact')">Contact</button>
+    </div>
+
+    <div id="about" class="tab-content active">
+      <p>Motivated Computer Application student at Vels University with a strong passion for UI/UX design. Recently completed a one-month internship at KODBUD IT Solutions, gaining practical experience in responsive interfaces, user journeys, and dynamic layout prototyping.</p>
+      <br>
+      <h4 style="color:var(--text-main); margin-bottom:12px;">Certifications</h4>
+      <ul class="cert-list">
+        <li><i class="fa-solid fa-certificate" style="color:var(--accent); margin-right:8px;"></i> NoviTech R&D Pvt Ltd UI/UX Certificate</li>
+        <li><i class="fa-solid fa-certificate" style="color:var(--accent); margin-right:8px;"></i> Kodbud Internship Certificate</li>
+        <li><i class="fa-solid fa-certificate" style="color:var(--accent); margin-right:8px;"></i> NPTEL Python for Data Science</li>
+      </ul>
+    </div>
+
+    <div id="projects" class="tab-content">
+      <div class="item-card">
+        <h4>Food Delivery App Prototype</h4>
+        <p>Developed an intuitive end-to-end interactive mock configuration flow for complex user ordering architectures.</p>
+      </div>
+      <div class="item-card">
+        <h4>Instagram UI/UX Redesign</h4>
+        <p>Revamped primary application navigation ecosystems including Home, Search, and User profile panels.</p>
+      </div>
+      <div class="item-card">
+        <h4>Tech Startup Landing Page</h4>
+        <p>Designed clean, completely optimised web properties prioritising modular presentation strategies.</p>
+      </div>
+    </div>
+
+    <div id="experience" class="tab-content">
+      <div class="item-card">
+        <h4 style="color:var(--accent);">KODBUD IT Solutions</h4>
+        <p><strong>UI/UX Design Intern</strong></p>
+        <p style="font-size:12px; margin-top:4px; color:var(--text-muted);">
+          <i class="fa-regular fa-calendar"></i> September–October 2025
+        </p>
+        <p style="margin-top:8px;">Worked on responsive UI components, collaborated with development teams, and prototyped user flows.</p>
+      </div>
+    </div>
+
+    <div id="contact" class="tab-content">
+      <a href="https://linkedin.com/in/mohammed-jafraan" target="_blank" rel="noopener" class="contact-link">
+        <i class="fa-brands fa-linkedin" style="color:#0a66c2;"></i>
+        <span>linkedin.com/in/mohammed-jafraan</span>
+      </a>
+      <a href="https://github.com/Jafraan" target="_blank" rel="noopener" class="contact-link">
+        <i class="fa-brands fa-github"></i>
+        <span>github.com/Jafraan</span>
+      </a>
+      <a href="mailto:jafraan82@gmail.com" class="contact-link">
+        <i class="fa-regular fa-envelope" style="color:#ea4335;"></i>
+        <span>jafraan82@gmail.com</span>
+      </a>
+    </div>
+
+    <button class="btn-danger" style="margin-top:20px;" onclick="handleLogout()">
+      <i class="fa-solid fa-arrow-right-from-bracket" style="margin-right:6px;"></i> Logout
+    </button>
+  </div>
+
+  <script type="module">
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import {
+      getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+      onAuthStateChanged, signOut, sendEmailVerification,
+      sendPasswordResetEmail
+    } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+    import {
+      getFirestore, doc, setDoc, updateDoc, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey:            "AIzaSyClaLZ83qJ8HCNu1OyyAsC020wIOlQIisk",
+      authDomain:        "portfolio-89df9.firebaseapp.com",
+      projectId:         "portfolio-89df9",
+      storageBucket:     "portfolio-89df9.firebasestorage.app",
+      messagingSenderId: "130026092620",
+      appId:             "1:130026092620:web:80f1cd07e8a9496c785ce9"
+    };
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    /* ════════════════════════════════════
+       EXPOSE helpers to onclick="" attrs
+    ════════════════════════════════════ */
+    window.handleLogin           = handleLogin;
+    window.handleSignup          = handleSignup;
+    window.handleLogout          = handleLogout;
+    window.handlePasswordReset   = handlePasswordReset;
+    window.checkEmailVerified    = checkEmailVerified;
+    window.resendVerificationEmail = resendVerificationEmail;
+    window.switchTab             = switchTab;
+    window.showCard              = showCard;
+
+    /* ════════════════════════════════════
+       TOAST
+    ════════════════════════════════════ */
+    function toast(msg, type = 'info', duration = 4500) {
+      const el = document.getElementById('toast');
+      const icons = { success:'fa-circle-check', error:'fa-circle-xmark', info:'fa-circle-info' };
+      el.innerHTML = `<i class="fa-solid ${icons[type]||icons.info}"></i> ${msg}`;
+      el.className = '';
+      void el.offsetWidth; 
+      el.className = `show toast-${type}`;
+      clearTimeout(el._t);
+      el._t = setTimeout(() => { el.classList.remove('show'); }, duration);
+    }
+
+    /* ════════════════════════════════════
+       CARD VISIBILITY
+    ════════════════════════════════════ */
+    const CARDS = [
+      'loginCard','signupCard','emailVerifyCard',
+      'portfolioDashboard','resetCard','resetSentCard'
+    ];
+
+    function showCard(id) {
+      CARDS.forEach(c => {
+        document.getElementById(c).style.display = (c === id) ? 'block' : 'none';
+      });
+    }
+
+    /* ════════════════════════════════════
+       PASSWORD TOGGLE
+    ════════════════════════════════════ */
+    window.togglePw = (inputId, icon) => {
+      const inp = document.getElementById(inputId);
+      const isHidden = inp.type === 'password';
+      inp.type = isHidden ? 'text' : 'password';
+      icon.className = `fa-regular ${isHidden ? 'fa-eye-slash' : 'fa-eye'} toggle-pw`;
+    };
+
+    /* ════════════════════════════════════
+       PASSWORD STRENGTH METER
+    ════════════════════════════════════ */
+    window.updateStrength = (pw) => {
+      let score = 0;
+      if (pw.length >= 6)  score++;
+      if (pw.length >= 10) score++;
+      if (/[A-Z]/.test(pw) && /[0-9]/.test(pw)) score++;
+      if (/[^A-Za-z0-9]/.test(pw)) score++;
+
+      const colors = ['','#ef4444','#f59e0b','#06b6d4','#22c55e'];
+      const labels = ['','Weak','Fair','Good','Strong'];
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById('s'+i).style.background = i <= score ? colors[score] : 'rgba(255,255,255,0.1)';
+      }
+      document.getElementById('strengthLabel').textContent = pw.length ? labels[score] : '';
+      document.getElementById('strengthLabel').style.color = colors[score] || 'var(--text-muted)';
+    };
+
+    /* ════════════════════════════════════
+       SIGNUP (With Mandatory Phone Logic)
+    ════════════════════════════════════ */
+    async function handleSignup() {
+      const email    = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value;
+      const phone    = document.getElementById('signupPhone').value.trim();
+
+      // Enforced Mandatory validations
+      if (!email || !password || !phone) {
+        return toast('Please enter email, password, and your phone number.', 'error');
+      }
+      if (password.length < 6) return toast('Password must be at least 6 characters.', 'error');
+      if (!/^\d{10}$/.test(phone)) return toast('Please enter a valid 10-digit phone number.', 'error');
+
+      const btn = document.getElementById('signupBtn');
+      setLoading(btn, true, 'Creating account…');
+
+      try {
+        // 1 — Create user profile instance in Firebase
+        const { user } = await createUserWithEmailAndPassword(auth, email, password);
+
+        // 2 — Dispatch verification email trigger
+        const actionCodeSettings = {
+          url: window.location.href,
+          handleCodeInApp: false
+        };
+        await sendEmailVerification(user, actionCodeSettings);
+
+        // 3 — Commit combined parameters to Firestore document store record
+        await setDoc(doc(db, 'users', user.uid), {
+          email:         user.email,
+          phoneNumber:   `+91${phone}`,
+          emailVerified: false,
+          createdAt:     serverTimestamp(),
+          status:        'pending_verification'
+        });
+
+        toast('Account created! Check your email for the verification link.', 'success', 6000);
+        document.getElementById('verifyEmailDisplay').textContent = user.email;
+        showCard('emailVerifyCard');
+
+      } catch (err) {
+        console.error('Signup error:', err);
+        toast(friendlyError(err.code), 'error');
+      } finally {
+        setLoading(btn, false, 'Create Account');
+      }
+    }
+
+    /* ════════════════════════════════════
+       EMAIL VERIFICATION — Check and entry
+    ════════════════════════════════════ */
+    async function checkEmailVerified() {
+      const user = auth.currentUser;
+      if (!user) return showCard('loginCard');
+
+      const btn = document.querySelector('#emailVerifyCard .btn-success');
+      setLoading(btn, true, 'Checking…');
+
+      try {
+        await user.reload();
+        const freshUser = auth.currentUser;
+
+        if (freshUser && freshUser.emailVerified) {
+          await updateDoc(doc(db, 'users', freshUser.uid), { emailVerified: true });
+          toast('Email verified! ✓', 'success');
+          showDashboard(freshUser);
+        } else {
+          toast('Email not yet verified. Click the link in your inbox first.', 'error');
+        }
+      } catch (err) {
+        console.error('Verification check error:', err);
+        toast(friendlyError(err.code), 'error');
+      } finally {
+        setLoading(btn, false, '<i class="fa-solid fa-circle-check" style="margin-right:6px;"></i> I\'ve Verified — Continue');
+      }
+    }
+
+    async function resendVerificationEmail() {
+      const user = auth.currentUser;
+      if (!user) return toast('No signed-in user found. Please log in again.', 'error');
+
+      const btn = document.getElementById('resendEmailBtn');
+      setLoading(btn, true, 'Sending…');
+
+      try {
+        const actionCodeSettings = {
+          url: window.location.href,
+          handleCodeInApp: false
+        };
+        await sendEmailVerification(user, actionCodeSettings);
+        toast('Verification email resent! Check your inbox.', 'success');
+      } catch (err) {
+        console.error('Resend error:', err);
+        toast(friendlyError(err.code), 'error');
+      } finally {
+        setLoading(btn, false, '<i class="fa-solid fa-rotate-right" style="margin-right:6px;"></i> Resend Email');
+      }
+    }
+
+    /* ════════════════════════════════════
+       PASSWORD RESET
+    ════════════════════════════════════ */
+    async function handlePasswordReset() {
+      const email = document.getElementById('resetEmail').value.trim();
+      if (!email) return toast('Please enter your email address.', 'error');
+
+      const btn = document.getElementById('resetBtn');
+      setLoading(btn, true, 'Sending reset link…');
+
+      try {
+        const actionCodeSettings = {
+          url: window.location.href,
+          handleCodeInApp: false
+        };
+        await sendPasswordResetEmail(auth, email, actionCodeSettings);
+        document.getElementById('resetEmailDisplay').textContent = email;
+        document.getElementById('resetEmail').value = '';
+        showCard('resetSentCard');
+        toast('Reset link sent! Check your inbox.', 'success', 5000);
+      } catch (err) {
+        console.error('Password reset error:', err);
+        toast(friendlyError(err.code), 'error');
+      } finally {
+        setLoading(btn, false, 'Send Reset Link');
+      }
+    }
+
+    /* ════════════════════════════════════
+       LOGIN
+    ════════════════════════════════════ */
+    async function handleLogin() {
+      const email    = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      if (!email || !password) return toast('Please enter both email and password.', 'error');
+
+      const btn = document.getElementById('loginBtn');
+      setLoading(btn, true, 'Signing in…');
+
+      try {
+        const { user } = await signInWithEmailAndPassword(auth, email, password);
+
+        if (!user.emailVerified) {
+          await user.reload();
+          if (!auth.currentUser.emailVerified) {
+            document.getElementById('verifyEmailDisplay').textContent = user.email;
+            showCard('emailVerifyCard');
+            toast('Please verify your email first. Check your inbox.', 'error', 5000);
+            return;
+          }
+        }
+
+        showDashboard(auth.currentUser);
+
+      } catch (err) {
+        console.error('Login error:', err);
+        toast(friendlyError(err.code), 'error');
+      } finally {
+        setLoading(btn, false, 'Sign In');
+      }
+    }
+
+    /* ════════════════════════════════════
+       LOGOUT
+    ════════════════════════════════════ */
+    async function handleLogout() {
+      try {
+        await signOut(auth);
+        ['loginEmail','loginPassword','signupEmail','signupPassword','signupPhone','resetEmail']
+          .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+        showCard('loginCard');
+        toast('Logged out successfully.', 'info', 2500);
+      } catch (err) {
+        console.error('Logout error:', err);
+      }
+    }
+
+    /* ════════════════════════════════════
+       DASHBOARD
+    ════════════════════════════════════ */
+    function showDashboard(user) {
+      if (!user) return showCard('loginCard');
+
+      const container = document.getElementById('verificationBadges');
+      container.innerHTML = '';
+
+      const emailBadge = document.createElement('span');
+      emailBadge.className = `status-badge ${user.emailVerified ? 'badge-verified' : 'badge-unverified'}`;
+      emailBadge.innerHTML = user.emailVerified
+        ? '<i class="fa-solid fa-circle-check"></i> Email Verified'
+        : '<i class="fa-solid fa-circle-exclamation"></i> Email Unverified';
+      container.appendChild(emailBadge);
+
+      showCard('portfolioDashboard');
+    }
+
+    /* ════════════════════════════════════
+       TAB NAVIGATION
+    ════════════════════════════════════ */
+    function switchTab(event, tabId) {
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    /* ════════════════════════════════════
+       AUTH STATE LISTENER
+    ════════════════════════════════════ */
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try { await user.reload(); } catch (_) {}
+        const fresh = auth.currentUser;
+
+        if (!fresh) { showCard('loginCard'); return; }
+
+        if (!fresh.emailVerified) {
+          document.getElementById('verifyEmailDisplay').textContent = fresh.email;
+          showCard('emailVerifyCard');
+        } else {
+          showDashboard(fresh);
+        }
+      } else {
+        showCard('loginCard');
+      }
+    });
+
+    /* ════════════════════════════════════
+       LOADING BUTTON HELPER
+    ════════════════════════════════════ */
+    function setLoading(btn, loading, label) {
+      if (!btn) return;
+      btn.disabled = loading;
+      btn.innerHTML = loading ? `<span class="spinner"></span>${label}` : label;
+    }
+
+    /* ════════════════════════════════════
+       FRIENDLY ERROR MESSAGES
+    ════════════════════════════════════ */
+    function friendlyError(code) {
+      const map = {
+        'auth/email-already-in-use':       'This email is already registered.',
+        'auth/invalid-email':              'Please enter a valid email address.',
+        'auth/weak-password':              'Password is too weak (minimum 6 characters).',
+        'auth/user-not-found':             'No account found with this email.',
+        'auth/wrong-password':             'Incorrect password. Please try again.',
+        'auth/invalid-credential':         'Incorrect email or password.',
+        'auth/too-many-requests':          'Too many attempts. Please try again later.',
+        'auth/network-request-failed':     'Network error. Check your connection.',
+        'auth/user-disabled':              'This account has been disabled.',
+        'auth/missing-email':              'Please enter your email address.',
+      };
+      return map[code] || `Something went wrong. (${code || 'unknown'})`;
+    }
+  </script>
+</body>
+</html>
